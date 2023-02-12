@@ -51,33 +51,30 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('home')}}" role="button">
+                                <a class="nav-link" href="{{route('admin.home')}}" role="button">
                                     Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('user.getContribution')}}" role="button">
-                                    Your Contribution
+                                <a class="nav-link" href="{{route('admin.getManageDonner')}}" role="button">
+                                    Manage Donner
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('user.getSearchBloodGroup')}}" role="button">
-                                    Search Blood Donor
+                                <a class="nav-link" href="" role="button">
+                                    Blood Request
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('user.getManageRequestBlood')}}" role="button">
-                                    Requested Blood
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('user.getBloodRequest')}}" role="button">
-                                    New Blood Group Request
-                                </a>
-                            </li>
+                            
+                            
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
+                                    @if(Auth::user()->is_admin == 1)
+                                        (Administrator)
+                                    @else
+                                        (Donner)
+                                    @endif
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

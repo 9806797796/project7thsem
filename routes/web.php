@@ -28,16 +28,7 @@ Route::get('/search/bloodgroup', [App\Http\Controllers\HomeController::class, 'g
 Route::get('/search/result', [App\Http\Controllers\HomeController::class, 'postSearchDonner'])->name('user.postSearchDonner');
 Route::get('/blood/contribution', [App\Http\Controllers\HomeController::class, 'getContribution'])->name('user.getContribution');
 
+Route::get('/admin/home', [App\Http\Controllers\AdminController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+Route::get('/admin/donner/manage', [App\Http\Controllers\AdminController::class, 'getManageDonner'])->name('admin.getManageDonner')->middleware('is_admin');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'getLogin'])->name('adminLogin');
-    Route::post('/login', [App\Http\Controllers\Admin\AdminAuthController::class, 'postLogin'])->name('adminLoginPost');
- 
-    Route::group(['middleware' => 'adminauth'], function () {
-        Route::get('/', function () {
-            return view('admin.dashboard');
-        })->name('adminDashboard');
- 
-    });
-});
 

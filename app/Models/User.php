@@ -29,6 +29,7 @@ class User extends Authenticatable
         'tole',
         'email',
         'password',
+        'is_admin',
     ];
 
     /**

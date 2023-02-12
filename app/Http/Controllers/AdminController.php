@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Blood;
 use App\Models\Requestedblood;
 use App\Models\Donated;
+use App\Models\User;
 
-class HomeController extends Controller
+class AdminController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,41 +25,36 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function adminHome()
     {
-        if(Auth()->user()->is_admin == 0){
-            return view('home');
+        return view('admin.dashboard');
+    }
+    public function getManageDonner(){
+        if(Auth()->user()->is_admin == 1){
+            $data =[
+                'donners' => Blood::all()
+            ];
+            return view('admin.donner', $data);
         }
         else{
-            abort(404);
+            abort('404');
         }
     }
 
     public function postAddBlood(Request $request){
-        if(Auth()->user()->is_admin == 0){
-            $blood = New Blood;
-            $blood->user_id = Auth()->user()->id;   
-            $blood->blood_group = $request->input('bloodgroup');
-            $blood->any_diseases = $request->input('any_diseases');
-            $blood->dob = $request->input('dob');
-            $blood->save();
-            return redirect()->back()->with('status', 'Blood Information Updated Successsfully.');
-        }
-        else{
-            abort(404);
-        }
+        $blood = New Blood;
+        $blood->user_id = Auth()->user()->id;   
+        $blood->blood_group = $request->input('bloodgroup');
+        $blood->any_diseases = $request->input('any_diseases');
+        $blood->dob = $request->input('dob');
+        $blood->save();
+        return redirect()->back()->with('status', 'Blood Information Updated Successsfully.');
     }
 
     public function getBloodRequest(){
-        if(Auth()->user()->is_admin == 0){
-            return view('user.bloodrequest');
-        }
-        else{
-            abort(404);
-        }
+        return view('user.bloodrequest');
     }
     public function postBloodRequest(Request $request){
-        if(Auth()->user()->is_admin == 0){
         $blood = New Requestedblood;
         $blood->user_id = Auth()->user()->id;
         $blood->pname = $request->input('pname');
@@ -78,34 +74,19 @@ class HomeController extends Controller
         $blood->requesteddatetime = $request->input('requesteddatetime');
         $blood->save();
         return redirect()->back()->with('status', 'Your Requested has been submtted.');
-        }
-        else{
-            abort(404);
-        }
         
     }
     public function getManageRequestBlood(){
-        if(Auth()->user()->is_admin == 0){
         $data=[
             'requestedbloods' => Requestedblood::where('user_id', Auth()->user()->id)->get()
         ];
         return view('user.managerequestedblood', $data);
-        }
-        else{
-            abort(404);
-        }
     }
 
     public function getSearchBloodGroup(){
-        if(Auth()->user()->is_admin == 0){
         return view('user.searchblood');
-        }
-        else{
-            abort(404);
-        }
     }
     public function postSearchDonner(Request $request){
-        if(Auth()->user()->is_admin == 0){
         $province = $request->get('province');
         $district = $request->get('district');
         $minicipality = $request->get('minicipality');
@@ -118,21 +99,12 @@ class HomeController extends Controller
                 
         ];
         return view('user.searchresult', $data);
-        }
-        else{
-            abort(404);
-        }
 
     }
     public function getContribution(){
-        if(Auth()->user()->is_admin == 0){
         $data =[
             'donates' => Donated::where('user_id', Auth()->user()->id)->get()
         ];
         return view('user.contribution', $data);
-        }
-        else{
-            abort(404);
-        }
     }
 }
