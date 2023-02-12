@@ -59,15 +59,15 @@
                               <div class="form-group">
                                 <label> Gender * </label><br />
                                     <label class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" value="M">
+                                    <input class="form-check-input" type="radio" name="gender" value="Male">
                                     <span class="form-check-label"> Male </span>
                                   </label>
                                   <label class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" value="F">
+                                    <input class="form-check-input" type="radio" name="gender" value="Female">
                                     <span class="form-check-label"> Female</span>
                                   </label>
                                   <label class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gender" value="O">
+                                    <input class="form-check-input" type="radio" name="gender" value="Other">
                                     <span class="form-check-label"> Other</span>
                                   </label>
                                 </div>
@@ -98,7 +98,7 @@
                                         <label>Word No *</label> 
                                         <select id="wordno" name="word_no" class="form-control" size="1" required>
                                           <option selected=""> Choose word</option>
-                                          <option value="1">१</option>
+                                          <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
                                                         <option value="4">4</option>
@@ -145,17 +145,12 @@
                                   
                                 </div> <!-- form-row.// -->
                                 
-                                  
-                                  <div class="form-group col-md-12">
-                                    <label>Date of Birth *</label>
-                                    <input type="date" id="dob" name="dob" class="form-control" required>
-                                  </div>
                                   <div class="form-row">
                                     <div class="form-group col-md-6">
                                     <label>Mobile Number *</label>
-                                    <input type="number" id="mobilenumber" name="mobile" class="form-control" required>
+                                    <input type="number" id="email" name="email" class="form-control" required>
                                     <small>Mobile number will be your username</small>
-                                    @error('mobile')
+                                    @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

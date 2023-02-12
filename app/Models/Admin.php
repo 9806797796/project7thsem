@@ -8,9 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'admins';
+    protected $guarded = array();
 
     /**
      * The attributes that are mass assignable.
@@ -19,14 +21,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'lname',
-        'gender',
-        'province',
-        'district',
-        'minicipality', 
-        'word_no',
-        'city',
-        'tole',
         'email',
         'password',
     ];
@@ -49,9 +43,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function blood()
-    {
-        return $this->hasOne('App\Models\Blood');
-    }
 }

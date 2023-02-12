@@ -12,6 +12,7 @@
         <!-- if boold information  not exisit then only show -->
         @php
             $bloodinformation = App\Models\Blood::where('user_id', Auth()->user()->id)->limit(1)->first();
+            $latestdonate = App\Models\Donated::where('user_id', Auth()->user()->id)->limit(1)->first();
         @endphp
         @if($bloodinformation)
             <div class="col-md-12">
@@ -19,15 +20,34 @@
                 <div class="card-header">{{ __('Add your Blood Information') }}</div>
 
                 <div class="card-body">
-                    <h5>Your Blood Profile</h5>
-                    <strong>Blood Name : {{$bloodinformation->bloodgroup}} </strong> <br />
-                    <strong> Any Diseases :
-                        @if($bloodinformation->any_diseases == Null)
-                        N/A
-                    @else
-                        {{$bloodinformation->any_diseases}}
-                    @endif
-                    </strong>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Your Blood Profile</h5>
+                            <strong>Blood Name : {{$bloodinformation->blood_group}} </strong> <br />
+                            <strong> Any Diseases or Regular Medicine Used :
+                                @if($bloodinformation->any_diseases == Null)
+                                N/A
+                            @else
+                                {{$bloodinformation->any_diseases}}
+                            @endif
+                            </strong> <br />
+                        <strong>
+                            Latest Blood Donate Date :
+                            @if($latestdonate)
+                                {{$latestdonate->latest_donate_date}}
+                            @else
+                                N/A
+                            @endif
+                        </strong>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Your Personal Information</h5>
+                            <strong>Full Name : {{Auth()->user()->name}} {{Auth()->user()->lname}}</strong> <br />
+                            <strong>Gender : {{Auth()->user()->gender}} Date of Birth: {{$bloodinformation->dob}}</strong><br />
+                            <strong>Contact Number : {{Auth()->user()->email}}</strong> <br />
+                            <strong>Address : {{ Auth()->user()->tole }}, {{Auth()->user()->city}}-{{Auth()->user()->word_no}}, {{ Auth()->user()->minicipality }}, {{ Auth()->user()->district }}, {{ Auth()->user()->province }} </strong>
+                        </div>
+                   </div>
 
                 
                 </div>
@@ -36,7 +56,7 @@
         @else
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Add your Blood Information') }}</div>
+                <div class="card-header">{{ __('Your Blood Information') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -46,11 +66,11 @@
                     @endif
 
                     <div>
-                         <form method="POST" action="{{ route('postAddBlood') }}">
+                         <form method="POST" action="{{ route('user.postAddBlood') }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Blood Group') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Blood Group *') }}</label>
 
                             <div class="col-md-6">
                                 <select id="blood_group" class="form-control" name="bloodgroup"  required>
@@ -68,29 +88,20 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input cdn" id="cdn" type="checkbox" name="any_diseases" id="any_diseases">
-
-                                    <label class="form-check-label" for="any_diseases">
-                                        {{ __('Any Diseases') }}
-                                    </label>
-                                </div>
+                            <label for="dob" class="col-md-4 col-form-label text-md-end">Date of Birth *</label>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" name="dob"/>
                             </div>
                         </div>
-
-                        <div class="row mb-3 dn" id="dn">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Diseases Name') }}</label>
-
+                        <div class="row mb-3">
+                                <label for="disesase" class="col-md-4 col-form-label text-md-end">If any Disesase or Regular Meducin used, Please define (Optional)</label>
                             <div class="col-md-6">
-                                <input id="diseases" type="text" class="form-control " name="diseases" required>
+                                <input type="text" class="form-control" name="any_diseases"/>
                             </div>
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <input type="submit" class="btn btn-primary" value="Update">
-                                   
-                             
                             </div>
                         </div>
                     </form>
@@ -103,15 +114,5 @@
 </div>
 @endsection
 @section('js')
-<script type="text/javascript">
-    $(function () {
-        $("#cdn").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dn").show();
-            } else {
-                $("#dn").hide();
-            }
-        });
-    });
-</script>
+
 @stop
