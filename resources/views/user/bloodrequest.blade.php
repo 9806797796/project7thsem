@@ -172,7 +172,7 @@
                                         <br />
                                         <button type="submit" class="btn btn-primary btn-block" onClick="signup()"> Request  </button>
                                     </div> <!-- form-group// -->      
-                                    <small class="text-muted">If requested blood group found in your bank, i will nofify.</small>                                          
+                                    <small class="text-muted">If requested blood group is found in blood bank, We will notify.</small>                                          
                             </form>
                         </div>
                     </div>

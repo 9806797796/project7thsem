@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                                <label for="disesase" class="col-md-4 col-form-label text-md-end">If any Disesase or Regular Meducin used, Please define (Optional)</label>
+                                <label for="disesase" class="col-md-4 col-form-label text-md-end">If any diseases or Regular Medicine used, Please define (Optional)</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="any_diseases"/>
                             </div>
