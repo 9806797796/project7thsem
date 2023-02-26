@@ -77,7 +77,7 @@ class HomeController extends Controller
         $blood->refno = $request->input('refno');
         $blood->requesteddatetime = $request->input('requesteddatetime');
         $blood->save();
-        return redirect()->back()->with('status', 'Your Requested has been submtted.');
+        return redirect()->route('user.getManageRequestBlood')->with('status', 'Your Requested has been submtted.');
         }
         else{
             abort(404);
@@ -135,4 +135,5 @@ class HomeController extends Controller
             abort(404);
         }
     }
+  
 }

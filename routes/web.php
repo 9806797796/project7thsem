@@ -30,5 +30,9 @@ Route::get('/blood/contribution', [App\Http\Controllers\HomeController::class, '
 
 Route::get('/admin/home', [App\Http\Controllers\AdminController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 Route::get('/admin/donner/manage', [App\Http\Controllers\AdminController::class, 'getManageDonner'])->name('admin.getManageDonner')->middleware('is_admin');
+Route::post('/admin/donner/add', [App\Http\Controllers\AdminController::class, 'postNewDonor'])->name('admin.postNewDonor')->middleware('is_admin');
+Route::get('/admin/blood/request', [App\Http\Controllers\AdminController::class, 'getManageRequestBloodAdmin'])->name('admin.getManageRequestBlood')->middleware('is_admin');
+Route::get('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'getRequestedBloodDetail'])->name('admin.getRequestedBloodDetail')->middleware('is_admin');
+Route::post('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'postResponse'])->name('admin.postResponse')->middleware('is_admin');
 
 

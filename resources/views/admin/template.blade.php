@@ -12,10 +12,11 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @yield('css')
+
 </head>
 <body>
     <div id="app">
@@ -61,7 +62,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="" role="button">
+                                <a class="nav-link" href="{{route('admin.getManageRequestBlood')}}" role="button">
                                     Blood Request
                                 </a>
                             </li>
@@ -100,5 +101,13 @@
         </main>
     </div>
     @yield('js')
+    <script src="{{asset('jquery.js')}}"></script>
+    <script src="{{asset('custom.js')}}"></script>
+    <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+    $('#myTable').DataTable();
+});
+    </script>
 </body>
 </html>

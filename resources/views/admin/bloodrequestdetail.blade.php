@@ -7,11 +7,9 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                {{ __('List of Donner') }}
+                                {{ __('Blood Request') }}
                             </div>
-                            <div class="col-md-6" style="text-align: right;">
-                                <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Donner</a>
-                            </div>
+                           
                         </div>
                     </div>
                     <div class="card-body">
@@ -25,45 +23,45 @@
                             </div>
                         @endif
                         <div class="row">
-                            <table class="table" id="myTable">
-                                <thead>
-                                    <tr>
-                                        <th>Full Name</th>
-                                        <th>Province</th>
-                                        <th>District</th>
-                                        <th>Minicipality</th>
-                                        <th>City</th>
-                                        <th>Tole</th>
-                                        <th>Blood Group</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if($donners->count())
-                                        @foreach($donners as $item)
-                                            <tr>
-                                                <td>{{$item->user->name}} {{$item->user->lname}}</td>
-                                                <td>{{$item->user->province}}</td>
-                                                <td>{{$item->user->district }}</td>
-                                                <td>{{$item->user->minicipality }}</td>
-                                                <td>{{$item->user->city }}-{{$item->user->word_no}}</td>
-                                                <td>{{$item->user->tole}}</td>
-                                                <td>
-                                                    {{$item->blood_group}}
-                                                    <small style="display: block;">Latest Blood donate Date : N/A </small>
-                                                </td>
-                                                <td>Ok</td>
-                                                <td><a href="">Edit</a> | <a href="">Delete</a></td>
-                                            </tr> 
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="4"> No any contribution yet</td>
-                                        </tr>
-                                    @endif
-                                </tbody>
-                            </table>
+                            <div class="col-md-6">
+                                <h5>Request By</h5> 
+                                Full Name : {{$user->name}} {{$user->lname}} <br />
+                                Mobile Number : {{$user->email}} <br />
+                                Address: {{$user->city}}
+
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Patient Information</h5>
+                                Full Name : {{$requested->pname}}, {{$requested->page}} age, {{$requested->pgender}} <br />
+                                Address : {{$requested->pprovince}}, {{$requested->pdistrict}}, {{$requested->pminicipality}}-{{$requested->pwordno}} <br />
+                                {{$requested->pcity}}, {{$requested->ptole}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                Requested Blood Group : {{$requested->requestedblood}} {{$requested->requestedbloodunit}} unit(s) <br />
+                                Hopital Name : {{$requested->hospitalname}} <br />
+                                Hospital Address : {{$requested->hospitaladdress}} <br />
+                                Blood Request Date : {{$requested->requesteddatetime}} <br />
+                                Hospital Ref. No. : {{$requested->refno}}
+                            </div>
+                            <div class="col-md-6">
+                                <form action="{{route('admin.postResponse', $requested->id)}}" method="POST">
+                                    @csrf()
+                                    Response <br />
+                                    <select name="response11" id="" required>
+                                        <option value="">Choose response</option>
+                                        <option value="Yes" <?php if($requested->accpected == 'Yes'){ echo 'selected'; } ?>>Available</option>
+                                        <option value="No" <?php if($requested->accpected == 'No'){ echo 'selected'; } ?>>Not Available</option>
+                                    </select> <br />
+                                    Message <br />
+                                    <textarea name="message1" id="">{{$requested->bloodbankmessage}}</textarea> <br />
+                                    <input type="checkbox" name="sendsms"> Notify by SMS? <br />
+
+                                    <input type="submit" value="Submit">
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

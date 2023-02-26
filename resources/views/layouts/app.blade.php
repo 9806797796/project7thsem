@@ -108,5 +108,6 @@
         </main>
     </div>
     @yield('js')
+    <script src="{{asset('custom.js')}}"></script>
 </body>
 </html>

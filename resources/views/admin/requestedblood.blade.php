@@ -22,7 +22,7 @@
                                         <th>Patient Name</th>
                                         <th>Requested Blood</th>
                                         <th>Request Date & Time</th>
-                                        <th>Status</th>
+                                        <th>Hospital Name</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -37,13 +37,9 @@
                                                 </td>
                                                 <td>{{$item->requesteddatetime }}</td>
                                                 <td>
-                                                    @if($item->accpected == Null)
-                                                        Waiting Response
-                                                    @else
-                                                        {{$item->bloodbankmessage}}
-                                                    @endif
+                                                   {{$item->hospitalname}}
                                                 </td>
-                                                <td><a href="">Cancel Request</a></td>
+                                                <td><a href="{{route('admin.getRequestedBloodDetail', $item->id)}}">View Detail</a></td>
                                             </tr> 
                                         @endforeach
                                     @else
