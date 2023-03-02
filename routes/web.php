@@ -35,5 +35,4 @@ Route::get('/admin/blood/request', [App\Http\Controllers\AdminController::class,
 Route::get('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'getRequestedBloodDetail'])->name('admin.getRequestedBloodDetail')->middleware('is_admin');
 Route::post('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'postResponse'])->name('admin.postResponse')->middleware('is_admin');
 
-Route::get('/admin/delete/{donner}', [App\Http\Controllers\AdminController::class ,'getDeleteDonner'])->name('admin.getDeleteDonner')->middleware('is_admin');
 
