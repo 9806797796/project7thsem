@@ -54,7 +54,7 @@
                                                     <small style="display: block;">Latest Blood donate Date : N/A </small>
                                                 </td>
                                                 <td>Ok</td>
-                                                <td><a href="">Edit</a> | <a href="">Delete</a></td>
+                                                <td><a href="">Edit</a> | <a href="{{route('admin.getDonnerDelete')}}">Delete</a></td>
                                             </tr> 
                                         @endforeach
                                     @else

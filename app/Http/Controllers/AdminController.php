@@ -210,7 +210,16 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('status', 'Response send successfully');
     }
-   
+    public function getDonnerDelete(donner $donner){
+        
+        $donner->deleted = 'Y';
+        $donner->save();
+
+        return redirect()->back()->with('message', 'donner Delete Sucess');
+    }
+    
 }
+   
+
  
 
