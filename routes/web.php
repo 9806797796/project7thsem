@@ -35,4 +35,9 @@ Route::get('/admin/blood/request', [App\Http\Controllers\AdminController::class,
 Route::get('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'getRequestedBloodDetail'])->name('admin.getRequestedBloodDetail')->middleware('is_admin');
 Route::post('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'postResponse'])->name('admin.postResponse')->middleware('is_admin');
 
+Route::get('/admin/blood/manage', [App\Http\Controllers\AdminController::class, 'getManageBlood'])->name('admin.getManageBlood')->middleware('is_admin');
+Route::post('/admin/blood/manage', [App\Http\Controllers\AdminController::class, 'postAddDonorBlood'])->name('admin.postAddDonorBlood')->middleware('is_admin');
+Route::get('/admin/issuebooold/{bloodgroup}', [App\Http\Controllers\AdminController::class, 'getIssueBlood'])->name('admin.getIssueBlood')->middleware('is_admin');
+Route::post('/admin/issueblood', [App\Http\Controllers\AdminController::class, 'postIsssueBlood'])->name('admin.postIsssueBlood')->middleware('is_admin');
+
 
