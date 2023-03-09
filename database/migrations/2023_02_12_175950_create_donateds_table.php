@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('donateds', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->timestamp('latest_donate_date');
+            $table->string('blood_group');
+            $table->timestamp('donate_date');
             $table->string('donate_at')->nullable();
+            $table->enum('issue_status',['N', 'Y'])->default('N');
             $table->timestamps();
         });
     }

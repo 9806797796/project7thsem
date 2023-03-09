@@ -18,7 +18,7 @@ class AdminController extends Controller
      *
      * @return void
      */
-    public function __construct() aw vannu 
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -191,7 +191,6 @@ class AdminController extends Controller
         $bloodrequest->bloodbankmessage = $request->input('message1');
         $bloodrequest->save();
         if($request->input('sendsms') == 'on'){
-            // send to sms
         $client = new Client();
         if($request->input('response11') == 'Yes'){
             $text_message = 'Dear ' .$user->name. ',Please visit blood bank to collect your requested blood.';
@@ -210,7 +209,36 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('status', 'Response send successfully');
     }
-    public function getDonnerDelete(donner $donnerid){
+
+    public function getManageBlood(){
+        $data =[
+            'donner' => User::where('is_admin', '0')->get(),
+            'requestednames' => Requestedblood::where('delivered', 'No')->get()
+        ];
+        return view('admin.manageblood', $data);
+    }
+    public function postAddDonorBlood(Request $request){
+        $add = New Donated;
+        $add->user_id = $request->input('donnerid');
+        $add->blood_group = $request->input('blood_group');
+        $add->donate_date = $request->input('donate_date');
+        $add->donate_at = $request->input('donate_location');
+        $add->save();
+        return redirect()->back()->with('message', 'blood added successfully');
+    }
+    public function getIssueBlood($bloodgroup){
+        $data =[
+            'donner' => User::where('is_admin', '0')->get(),
+            'requestednames' => Requestedblood::where('delivered', 'No')->get(),
+            'bloods' => Donated::where('blood_group', $bloodgroup)->get(),
+            'requested_bloodgroup' => $bloodgroup
+        ];
+        return view('admin.donatebloodlist', $data);
+    }
+    public function postIsssueBlood(Request $request){
+
+    }
+    public function getDonnerDelete(donner $donner){
         
         $donner->deleted = 'Y';
         $donner->save();
@@ -218,6 +246,7 @@ class AdminController extends Controller
         return redirect()->back()->with('message', 'donner Delete Sucess');
     }
     
+
 }
    
 

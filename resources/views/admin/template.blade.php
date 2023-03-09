@@ -57,6 +57,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.getManageBlood')}}" role="button">
+                                    Manage Blood
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('admin.getManageDonner')}}" role="button">
                                     Manage Donner
                                 </a>

@@ -52,7 +52,7 @@
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('home')}}" role="button">
-                                    Dashboard
+                                    Dashboard1
                                 </a>
                             </li>
                             <li class="nav-item">
