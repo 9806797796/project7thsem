@@ -18,7 +18,7 @@ class AdminController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct() aw vannu 
     {
         $this->middleware('auth');
     }
@@ -210,7 +210,7 @@ class AdminController extends Controller
         }
         return redirect()->back()->with('status', 'Response send successfully');
     }
-    public function getDonnerDelete(donner $donner){
+    public function getDonnerDelete(donner $donnerid){
         
         $donner->deleted = 'Y';
         $donner->save();
