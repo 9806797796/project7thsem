@@ -3,7 +3,7 @@
 <head>
    <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Navbar in Bootstrap</title>
+  <title>Rakta Seva</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 
         <!--jQuery library-->
@@ -23,7 +23,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="https://codepen.io/Mamik153/full/MXOyjY/">Lifestyle Store</a>
+                    <a class="navbar-brand" href="https://codepen.io/Mamik153/full/MXOyjY/">Rakta Seva</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
@@ -181,6 +181,7 @@
         <hr>
          <h5 class="text-center">&copy; Lifestyle store. All Rights Reserved</h5>
       </footer>
+      <script src="{{asset('custom.js')}}"></script>
 </body>
 
 </html>

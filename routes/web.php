@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\SiteController::class, 'getHome'])->name('getHome');
 
 Auth::routes();
 
@@ -33,7 +31,9 @@ Route::get('/admin/donner/manage', [App\Http\Controllers\AdminController::class,
 Route::post('/admin/donner/add', [App\Http\Controllers\AdminController::class, 'postNewDonor'])->name('admin.postNewDonor')->middleware('is_admin');
 Route::get('/admin/blood/request', [App\Http\Controllers\AdminController::class, 'getManageRequestBloodAdmin'])->name('admin.getManageRequestBlood')->middleware('is_admin');
 Route::get('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'getRequestedBloodDetail'])->name('admin.getRequestedBloodDetail')->middleware('is_admin');
-Route::post('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'postResponse'])->name('admin.postResponse')->middleware('is_admin');
+
+Route::get('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'getRequestedBloodDetail'])->name('admin.getRequestedBloodDetail')->middleware('is_admin');
+Route::get('/admin/donner/delete/{donnerid}', [App\Http\Controllers\AdminController::class, 'admin.getDonnerDelete'])->name('admin.getDonnerDelete')->middleware('is_admin');
 
 Route::get('/admin/blood/manage', [App\Http\Controllers\AdminController::class, 'getManageBlood'])->name('admin.getManageBlood')->middleware('is_admin');
 Route::post('/admin/blood/manage', [App\Http\Controllers\AdminController::class, 'postAddDonorBlood'])->name('admin.postAddDonorBlood')->middleware('is_admin');
