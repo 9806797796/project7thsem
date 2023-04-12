@@ -238,13 +238,67 @@ class AdminController extends Controller
     public function postIsssueBlood(Request $request){
 
     }
-    public function getDonnerDelete(donner $donner){
+    public function getDonnerDelete(Donated $donner){
         
-        $donner->deleted = 'Y';
-        $donner->save();
+       $donner->deleted = 'Y';
+       $donner->save();
 
         return redirect()->back()->with('message', 'donner Delete Sucess');
     }
+    public function getManageAdminUser(){
+        $data =[
+            'users' => User::where('is_admin', '1')->get()
+        ];
+        return view('admin.manageuser', $data);
+    }
+   
+    public function postAddAdminUser(Request $request){
+        $fname = $request->input('name');
+        $lname = $request->input('lname');
+        $gender = $request->input('gender');
+        $province = $request->input('province');
+        $district = $request->input('district');
+        $minicipality = $request->input('minicipality');
+        $word_no = $request->input('word_no');
+        $tole = $request->input('tole');
+        $city = $request->input('city');
+        $email = $request->input('email');
+        $bloodgroup = $request->input('bloodgroup');
+        $dob = $request->input('dob');
+        $makeaccount = $request->input('makeaccount');
+        // check donnor double entry
+         $check = User::where('email', $email)->count();
+         if($check == 0){
+           
+            $user = New User;
+            $user->name = $fname;
+            $user->lname = $lname;
+            $user->is_admin ='1';
+            $user->email = $email;
+            $user->gender = $gender;
+            $user->province = $province;
+            $user->district = $district;
+            $user->minicipality = $minicipality;
+            $user->city = $city;
+            $user->tole = $tole;
+            $user->word_no = $word_no;
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+
+          return redirect()->back()->with('message', 'Admin Added Successfully');
+
+          
+        }
+        else{
+            return redirect()->back()->with('message', 'Unable to add, due to mobile number doublicate entry');
+        }
+
+    }
+
+public function getAdminUserDelete(User $user){
+    $user->delete();
+    return redirect()->back()->with('message', 'Admin User Deleted Successfully');
+}
     
 
 }

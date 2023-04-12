@@ -7,11 +7,11 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                {{ __('List of Donner') }}
+                                {{ __('List of User') }}
                             </div>
-                            <div class="col-md-6" style="text-align: right;">
-                                <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Donner</a>
-                            </div>
+                           	<div class="col-md-6" style="text-align:right">
+                           		<a href="" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#AddAdminUser">Add User</a>
+                           	</div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -28,41 +28,19 @@
                             <table class="table" id="myTable">
                                 <thead>
                                     <tr>
-                                        <th>Full Name</th>
-                                        <th>Province</th>
-                                        <th>District</th>
-                                        <th>Minicipality</th>
-                                        <th>City</th>
-                                        <th>Tole</th>
-                                        <th>Blood Group</th>
-                                        <th>Status</th>
+                                        <th>Name</th>
+                                        <th>Mobile Number</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($donners->count())
-                                        @foreach($donners as $item)
-                                        <?php $user = App\Models\User::where('id', $item->user_id)->limit(1)->first(); ?>
-                                            <tr>
-                                                <td>{{$user->name}} {{$user->lname}}</td>
-                                                <td>{{$user->province}}</td>
-                                                <td>{{$user->district }}</td>
-                                                <td>{{$user->minicipality }}</td>
-                                                <td>{{$user->city }}-{{$user->word_no}}</td>
-                                                <td>{{$user->tole}}</td>
-                                                <td>
-                                                    {{$item->blood_group}}
-                                                    <small style="display: block;">Latest Blood donate Date : N/A </small>
-                                                </td>
-                                                <td>Ok</td>
-                                                <td><a href="">Edit</a> | <a href="{{route('admin.getDonnerDelete',$item->user->id)}}">Delete1</a></td>
-                                            </tr> 
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="4"> No any contribution yet</td>
-                                        </tr>
-                                    @endif
+                                	@foreach($users as $user)
+                                   <tr>
+                                   	<td>{{$user->name}} {{$user->lname}}</td>
+                                   	<td>{{$user->email}}</td>
+                                   	<td><a href="{{route('admin.getAdminUserDelete', $user->id)}}">Delete</td>
+                                   </tr>
+                                   @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -71,14 +49,15 @@
             </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="AddAdminUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content modal-lg">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Donor</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Admin User</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{route('admin.postNewDonor')}}" method="POST">
+        <form action="{{route('admin.postAddAdminUser')}}" method="POST">
             @csrf()
         <div class="modal-body">
                 <div class="row">
@@ -183,7 +162,13 @@
                     <div class="form-group col-md-4">
                       <label>Mobile Number *</label>
                       <input type="number" id="email" name="email" class="form-control" required>
-                      <small><input type="checkbox" name="makeaccount"> make donner login account?</small>
+                     
+                       
+                    </div>
+                     <div class="form-group col-md-4">
+                      <label>Password *</label>
+                      <input type="text" id="password" name="password" class="form-control" required>
+                     
                        
                     </div>
                     <div class="form-group col-md-4">

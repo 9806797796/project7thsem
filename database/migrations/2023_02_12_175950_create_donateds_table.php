@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('blood_group');
+            
             $table->timestamp('donate_date');
             $table->string('donate_at')->nullable();
             $table->enum('issue_status',['N', 'Y'])->default('N');

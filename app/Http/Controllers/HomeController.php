@@ -36,6 +36,13 @@ class HomeController extends Controller
 
     public function postAddBlood(Request $request){
         if(Auth()->user()->is_admin == 0){
+            $dateOfBirth = $request->input('dob');
+           
+            $today = date("Y-m-d");
+            $diff = date_diff(date_create($dateOfBirth), date_create($today));
+           $age = $diff->format('%y');
+            if($age >= 18 AND $age < 60){
+
             $blood = New Blood;
             $blood->user_id = Auth()->user()->id;   
             $blood->blood_group = $request->input('bloodgroup');
@@ -45,7 +52,13 @@ class HomeController extends Controller
             return redirect()->back()->with('status', 'Blood Information Updated Successsfully.');
         }
         else{
+            return redirect()->back()->with('status', 'Your must be 18 - 60 age to donate blood.');
+
+        }
+        }
+        else{
             abort(404);
+
         }
     }
 
