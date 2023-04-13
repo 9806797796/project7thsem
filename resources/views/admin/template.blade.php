@@ -63,7 +63,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('admin.getManageDonner')}}" role="button">
-                                    Manage Donner
+                                    Manage Donor
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -106,7 +106,7 @@
             @yield('content')
         </main>
     </div>
-    @yield('js')
+   
     <script src="{{asset('jquery.js')}}"></script>
     <script src="{{asset('custom.js')}}"></script>
     <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
@@ -115,5 +115,6 @@
     $('#myTable').DataTable();
 });
     </script>
+     @yield('js')
 </body>
-</html>
+</html> 

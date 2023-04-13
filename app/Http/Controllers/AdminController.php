@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
+use DB;
+
 
 class AdminController extends Controller
 {
@@ -76,7 +78,7 @@ class AdminController extends Controller
         $blood->refno = $request->input('refno');
         $blood->requesteddatetime = $request->input('requesteddatetime');
         $blood->save();
-        return redirect()->back()->with('status', 'Your Requested has been submtted.');
+        return redirect()->back()->with('status', 'Your Requested has been summited.');
         
     }
     public function getManageRequestBlood(){
@@ -207,7 +209,7 @@ class AdminController extends Controller
             ]
         ]);
         }
-        return redirect()->back()->with('status', 'Response send successfully');
+        return redirect()->back()->with('message', 'Response send successfully');
     }
 
     public function getManageBlood(){
@@ -235,13 +237,49 @@ class AdminController extends Controller
         ];
         return view('admin.donatebloodlist', $data);
     }
+    public function getbloodlist($type){
+        $data =[
+                'bloods' => Donated::where('blood_group', $type)->get(),
+                'type' => $type,
+                'requestednames' => Requestedblood::where('delivered', 'No')->get(),
+        ];
+        return view('admin.issueblood', $data);
+    }
     public function postIsssueBlood(Request $request){
 
+        $donatedid = $request->input('donated_id');
+        $issue_to = $request->input('issuer_name');
+        $giveto = $request->input('giveto');
+
+        DB::table('donateds')
+        ->where('id', $donatedid)  // find your user by their email
+        ->limit(1)  // optional - to ensure only one record is updated.
+        ->update(array('issue_status' => 'Y', 'issue_to' => $issue_to, 'requestedblood_id' => $giveto));  // update the record in the DB. 
+
+        return redirect()->back()->with('message', 'Blood Issue Successfully');
+
+
     }
-    public function getDonnerDelete(Donated $donner){
+    public function getDonnerDelete(User $user){
+       
+
+        $checkblood = Blood::where('user_id', $user->id)->count();
         
-       $donner->deleted = 'Y';
-       $donner->save();
+        if($checkblood > 0){
+           
+            DB::table('bloods')->where('user_id', $user->id)->delete();
+        } 
+
+        $chekdonate = Donated::where('user_id', $user->id)->count();
+        if($checkblood > 0){
+             Donated::where('user_id', $user->id)->delete();
+        }
+
+       $user->delete();
+      
+
+       
+
 
         return redirect()->back()->with('message', 'donner Delete Sucess');
     }
@@ -298,6 +336,36 @@ class AdminController extends Controller
 public function getAdminUserDelete(User $user){
     $user->delete();
     return redirect()->back()->with('message', 'Admin User Deleted Successfully');
+}
+public function  getListfofDonnorToRequest($type){
+     $data =[
+                'bloods' => Blood::where('blood_group', $type)->get(),
+                'type' => $type,
+                
+        ];
+        return view('admin.requestbloodtodonner', $data);
+
+}
+public function postListfofDonnorToRequest(Request $request, $type){
+   
+    $text_message = 'Dear Donor, Urgently required '.$type.' blood group , Please contact us if you want to donate blood. For support call 9806797796.
+         Thank You ';
+   
+     foreach ($request->checked as $key => $val){
+        if (in_array($val, $request->checked)){
+            $client = new Client();
+         $res = $client->request('POST', 'https://sms.aakashsms.com/sms/v3/send', [
+            'form_params' => [
+                'auth_token' => 'e17b9097e6ec4450ed488ee536924d2b41e4ec8a6ffdac7cff5e2aed0cf4a3c7',
+                'from' => '31001',
+                'to' => $val,
+                'text' => $text_message,
+            ]
+        ]);
+        }
+
+     }
+    
 }
     
 

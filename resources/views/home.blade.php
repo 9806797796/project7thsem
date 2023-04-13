@@ -53,6 +53,8 @@
                 </div>
             </div>
             </div>
+           
+            </div>
         @else
         <div class="col-md-12">
             <div class="card">
@@ -109,8 +111,26 @@
                 </div>
             </div>
         </div>
+         <div class="row1 justify-content-center11" style="margin-top: 10px;">
+                <div class="col-md-12">
+                 <div class="card">
+                <div class="card-header">{{ __('Your Google Location Co-ordinate') }}</div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5></h5>
+                           
+                        </div>
+                      
+                   </div>
+
+                
+                </div>
+            </div>
         @endif
     </div>
+
 </div>
 @endsection
 @section('js')

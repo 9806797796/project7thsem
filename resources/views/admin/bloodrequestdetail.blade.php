@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                {{ __('Blood Request') }}
+                                {{ __('Blood Request') }} 
                             </div>
                            
                         </div>
@@ -52,8 +52,8 @@
                                     Response <br />
                                     <select name="response11" id="" required>
                                         <option value="">Choose response</option>
-                                        <option value="Yes" <?php if($requested->accpected == 'Yes'){ echo 'selected'; } ?>>Available</option>
-                                        <option value="No" <?php if($requested->accpected == 'No'){ echo 'selected'; } ?>>Not Available</option>
+                                        <option value="Yes" <?php if($requested->accepted == 'Yes'){ echo 'selected'; } ?>>Available</option>
+                                        <option value="No" <?php if($requested->accepted == 'No'){ echo 'selected'; } ?>>Not Available</option>
                                     </select> <br />
                                     Message <br />
                                     <textarea name="message1" id="">{{$requested->bloodbankmessage}}</textarea> <br />
@@ -119,9 +119,9 @@
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Minicipality *</label> 
+                        <label>Municipality *</label> 
                         <select id="municipalitySel" name="minicipality" class="form-control" size="1" required>
-                        <option selected=""> Choose Minicipality</option>
+                        <option selected=""> Choose Municipality</option>
                         </select>
                     </div>
                 </div>
@@ -180,7 +180,7 @@
                     <div class="form-group col-md-4">
                       <label>Mobile Number *</label>
                       <input type="number" id="email" name="email" class="form-control" required>
-                      <small><input type="checkbox" name="makeaccount"> make donner login account?</small>
+                      <small><input type="checkbox" name="makeaccount"> make donor login account?</small>
                        
                     </div>
                     <div class="form-group col-md-4">

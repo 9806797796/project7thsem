@@ -49,10 +49,10 @@ class HomeController extends Controller
             $blood->any_diseases = $request->input('any_diseases');
             $blood->dob = $request->input('dob');
             $blood->save();
-            return redirect()->back()->with('status', 'Blood Information Updated Successsfully.');
+            return redirect()->back()->with('status', 'Blood Information Updated Successfully.');
         }
         else{
-            return redirect()->back()->with('status', 'Your must be 18 - 60 age to donate blood.');
+            return redirect()->back()->with('status', 'You must be in between 18-60 age to donate blood.');
 
         }
         }

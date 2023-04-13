@@ -21,6 +21,8 @@ return new class extends Migration
             $table->timestamp('donate_date');
             $table->string('donate_at')->nullable();
             $table->enum('issue_status',['N', 'Y'])->default('N');
+            $table->string('issue_to')->nullable();
+            $table->integer('requestedblood_id')->nullable();
             $table->timestamps();
         });
     }

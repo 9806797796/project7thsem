@@ -7,10 +7,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                {{ __('List of Donor') }}
+                                List of {{$type}} blood
                             </div>
                             <div class="col-md-6" style="text-align: right;">
-                                <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Blood Unit</a>
+                                <a  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Blood Unit</a>
                                
                             </div>
                         </div>
@@ -30,26 +30,35 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Blood Group</th>
-                                        <th>Donor</th>
+                                        
+                                        <th>Donnor</th>
                                         <th>Collection at</th>
+
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($bloods as $blood)
+
                                         <tr>
                                             <td>Code</td>
-                                            <td>{{$blood->blood_group}}</td>
+                                           
                                             <td>
                                                 @if($blood->user_id != Null)
-                                                 show name card-header
+                                                     @php $user = App\Models\User::where('id',$blood->user_id)->limit(1)->first(); @endphp
+                                                    {{ $user->name}} {{$user->lname}}
                                                  @else
                                                     --
                                                 @endif
                                             </td>
                                             <td>{{$blood->donate_date}}</td>
-                                            <td> <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#IssueBlood">Issue Blood</a></td>
+                                            <td>
+                                                @if($blood->issue_status == 'N')
+                                                <a class="btn btn-primary bloodissue1" id="{{$blood->id}}">Issue Blood</a>
+                                                @else
+                                                     <a class="btn btn-danger">Issued</a>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -75,7 +84,7 @@
                         <label>Issuer Name from Online Request </label>   
                             <select name="giveto" id="" class="form-control">
                                 <option value="">Choose</option>
-                            @foreach($requestednames as $requestname)
+                                 @foreach($requestednames as $requestname)
                                 @php $name1 = User::find('requestname->user_id'); @endphp
                                 <option value="{{$requestname->id}}-{{$requestname->user_id}}">{{$requestname->name}} {{$requestname->lname}}</option>
                             @endforeach
@@ -88,18 +97,13 @@
                    
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label>Blood Group *</label>
-                        <select id="blood_group" class="form-control" name="blood_group"  required>
-                            <option value="{{$requested_bloodgroup}}">{{$requested_bloodgroup}}</option>
-                
-                        </select>
+                       <input type="text" class="form-control" name="idddd" value="{{$type}}" disable>
+                       <input type="hidden" name="donated_id" id="donated_id_modal">
                     </div>
-                    <div class="form-group col-md-4">
-                        <label>Unit *</label>
-                       <input type="number" class="form-control" value="1">
-                    </div>
-                    <div class="form-group col-md-4">
+                   
+                    <div class="form-group col-md-6">
                         <label>Issue Date</label>
                         <input type="date" name="donate_date" class="form-control" value="{{date('Y-m-d')}}" required>
                       </div>
@@ -118,69 +122,16 @@
       </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content modal-lg">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Blood Unit</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{route('admin.postAddDonorBlood')}}" method="POST">
-            @csrf()
-        <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12 form-group">
-                        <label>Donator name </label>   
-                       <select name="donnerid" id="" class="form-control">
-                            <option value=""> Choose Donor</option>
-                            @foreach($donner as $item) 
-                                <option value="{{$item->id}}">{{$item->name}} {{$item->lname}}</option>
-                            @endforeach
-                       </select>
-                    </div>
-                </div>
-                
-               
-               
-                  
-                <div class="row">
-                   
-                    <div class="form-group col-md-4">
-                        <label>Blood Group *</label>
-                        <select id="blood_group" class="form-control" name="blood_group"  required>
-                            <option value="A+">A+</option>
-                            <option value="B+">B+</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="A-">A-</option>
-                            <option value="B-">B-</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Donate Date</label>
-                        <input type="date" name="donate_date" class="form-control" value="{{date('Y-m-d')}}" required>
-                      </div>
-                      <div class="form-group col-md-4">
-                        <label>Donate location</label>
-                        <input type="text" name="donate_location" class="form-control" required>
-                      </div>
-                </div>
-                    
-                   
-                   
-                  
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
 @stop
 @section('js')
-
+<script>
+    $(document).ready(function() {
+        $('a.bloodissue1').click(function() {
+             var donatedid  = this.id;
+             $("#donated_id_modal").val(donatedid);
+            $('#IssueBlood').modal('show');
+        });
+    });
+</script>
+        
 @stop

@@ -7,10 +7,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-6">
-                                {{ __('List of Donner') }}
+                                {{ __('List of Donor') }}
                             </div>
                             <div class="col-md-6" style="text-align: right;">
-                                <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Donner</a>
+                                <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Donor</a>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                                         <th>Full Name</th>
                                         <th>Province</th>
                                         <th>District</th>
-                                        <th>Minicipality</th>
+                                        <th>Municipality</th>
                                         <th>City</th>
                                         <th>Tole</th>
                                         <th>Blood Group</th>
@@ -55,13 +55,12 @@
                                                     <small style="display: block;">Latest Blood donate Date : N/A </small>
                                                 </td>
                                                 <td>Ok</td>
-                                                <td><a href="">Edit</a> | <a href="{{route('admin.getDonnerDelete',$item->user->id)}}">Delete1</a></td>
+                                                <td><a href="">Edit</a> | <a href="{{route('admin.getDonnerDelete',$user->id)}}">Delete</a></td>
                                             </tr> 
                                         @endforeach
                                     @else
-                                        <tr>
-                                            <td colspan="4"> No any contribution yet</td>
-                                        </tr>
+                                       <p> No any contribution yet</p>
+                                     
                                     @endif
                                 </tbody>
                             </table>
@@ -124,7 +123,7 @@
                     <div class="form-group col-md-4">
                         <label>Minicipality *</label> 
                         <select id="municipalitySel" name="minicipality" class="form-control" size="1" required>
-                        <option selected=""> Choose Minicipality</option>
+                        <option selected=""> Choose Municipality</option>
                         </select>
                     </div>
                 </div>
@@ -183,7 +182,7 @@
                     <div class="form-group col-md-4">
                       <label>Mobile Number *</label>
                       <input type="number" id="email" name="email" class="form-control" required>
-                      <small><input type="checkbox" name="makeaccount"> make donner login account?</small>
+                      <small><input type="checkbox" name="makeaccount"> make donor login account?</small>
                        
                     </div>
                     <div class="form-group col-md-4">

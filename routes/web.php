@@ -33,7 +33,8 @@ Route::get('/admin/blood/request', [App\Http\Controllers\AdminController::class,
 Route::get('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'getRequestedBloodDetail'])->name('admin.getRequestedBloodDetail')->middleware('is_admin');
 
 Route::get('/admin/blood/requestdetail/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'getRequestedBloodDetail'])->name('admin.getRequestedBloodDetail')->middleware('is_admin');
-Route::get('/admin/donner/delete/{donnerid}', [App\Http\Controllers\AdminController::class, 'getDonnerDelete'])->name('admin.getDonnerDelete')->middleware('is_admin');
+Route::post('/admin/blood/requestdetail1/{bloodrequest}', [App\Http\Controllers\AdminController::class, 'postResponse'])->name('admin.postResponse')->middleware('is_admin');
+Route::get('/admin/donner/delete/{user}', [App\Http\Controllers\AdminController::class, 'getDonnerDelete'])->name('admin.getDonnerDelete')->middleware('is_admin');
 
 Route::get('/admin/blood/manage', [App\Http\Controllers\AdminController::class, 'getManageBlood'])->name('admin.getManageBlood')->middleware('is_admin');
 Route::post('/admin/blood/manage', [App\Http\Controllers\AdminController::class, 'postAddDonorBlood'])->name('admin.postAddDonorBlood')->middleware('is_admin');
@@ -42,5 +43,9 @@ Route::post('/admin/issueblood', [App\Http\Controllers\AdminController::class, '
 Route::get('/admin/user/manage', [App\Http\Controllers\AdminController::class, 'getManageAdminUser'])->name('admin.getManageAdminUser')->middleware('is_admin');
 Route::post('/admin/user/manage', [App\Http\Controllers\AdminController::class, 'postAddAdminUser'])->name('admin.postAddAdminUser')->middleware('is_admin');
 Route::get('/admin/user/delete/{user}', [App\Http\Controllers\AdminController::class, 'getAdminUserDelete'])->name('admin.getAdminUserDelete')->middleware('is_admin');
+Route::get('/admin/blood-lists/{type}', [App\Http\Controllers\AdminController::class, 'getbloodlist'])->name('admin.getbloodlist')->middleware('is_admin');
+Route::get('/admin/blood-request/{type}', [App\Http\Controllers\AdminController::class, 'getListfofDonnorToRequest'])->name('admin.getListfofDonnorToRequest')->middleware('is_admin');
+Route::post('/admin/blood-request/{type}', [App\Http\Controllers\AdminController::class, 'postListfofDonnorToRequest'])->name('admin.postListfofDonnorToRequest')->middleware('is_admin');
+ Route::get('/admin/bloodbank', [App\Http\Controllers\BloodBankController::class]);
 
 
